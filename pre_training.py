@@ -1,5 +1,6 @@
 from sklearn import tree
 import pickle as pkl
+import numpy as np
 
 def load(path):
     return pkl.load(open(path, 'rb'))
@@ -12,7 +13,6 @@ Y_train = load('Y_train.p')
 clf = tree.DecisionTreeClassifier(random_state=0)
 clf = clf.fit(X_train, Y_train)
 
-Y_pred = clf.predict(X_test)
-
-acc_decision_tree = round(clf.score(X_train, Y_train) * 100, 2)
-print(round(acc_decision_tree,2,), "%")
+acc_decision_tree = clf.score(X_test, Y_test)*100
+print(acc_decision_tree, "%")
+print(np.argsort(clf.feature_importances_)[-1])
